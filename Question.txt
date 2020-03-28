@@ -1,0 +1,369 @@
+Welcome to big data analytic project using Apache Spark.
+
+Olympic games are international sporting events where thousands of athletes from more than 200 countries participate in variety of competitions. Winner, second and third place competitors are awarded gold, silver and bronze medals respectively. Participating in an event and winning medals in olympic games is an aspiration and dream for many people around the world.
+
+The dataset used for this exercise, 'olympix_data.csv' contains data from olympic events between 2000 and 2012 in which athlete has won atleast one medal. Below are the columns available for analysis. The goal of this project is to analyze the data using apache spark and answer the questions that follow therby extracting insights from data.
+
+
+Important Instructions
+
+* This project needs to be completed in spark environment using either scala or pyspark
+* The schema of the dataset needs to match as given in next section.
+* The file names to be saved should match EXACTLY the name provided in the instruction including the file extention. i.e. '.csv'
+* The records should be ORDERED as per the instruction.
+* All the files should be saved along with header information.
+* The files should be saved along with 
+* Once the hackerrank environment is up, use terminal to bring up scala or pyspark. Type 'pyspark' in terminal to bring up pyspark.  Type 'spark-shell' to bring up scala.
+
+Data Preparation
+
+Before starting with analysis, data needs to be cleaned and prepared. The needed steps are detailed below.
+
+Step 1 - Read the raw data from 'olympix_data.csv' and store it in dataframe with below mentioned schema. The column name and datatypes should match as given below
+
+Step 2 - Check for records with missing value in Age column. Store those records alone to a file named 'datanull.csv'.
+
+Step 3 - Drop the ClosingDate as it is not useful for the following analysis
+
+Step 4 - Drop the records with missing value
+
+Step 5 - Save the cleaned file to 'final_data.csv'. The data available at this step will be used for analytics.
+
+
+-------------------------------------------------------------
+|Col.No| Col.Name   |   Col.Description       | Col.Datatype|
+-------------------------------------------------------------
+|1     |Athlete     |Name of athlete          | string      |
+|2     |Age         |Age of athlete           | integer     |
+|3     |Country     |Country of athlete       | string      |
+|4     |Year        |Year of the event        | integer     |
+|5     |ClosingDate |Closing date of the event| date        |
+|6     |Sport       |Name of the Sport        | string      |
+|7     |GoldMedals  |No. of gold medals won   | integer     |
+|8     |SilverMedals|No. of silver medals won | integer     |
+|9     |BronzeMedals|No. of bronze medals won | integer     |
+|10    |TotalMedals |No. of total medals won  | integer     |
+-------------------------------------------------------------
+
+
+Time for some analysis.
+
+Question 1:
+
+What are the distinct sports names in which athlete had participated? Save results to csv file named 'distinct_sports.csv' along with header information.
+
+Sample submission format:
++--------------------+
+|               Sport|
++--------------------+
+|             Sport 1|
+|             Sport 2|
+|                .   |
+|                .   |
+|             Sport N|
++--------------------+
+
+Question 2:
+
+What are the top 10 popular sports in terms of total medals awarded? Order the results in the order of TotalMedals descending. Save results to csv file named 'top_10_sport.csv' along with header information.
+
+Sample submission format:
++----------+-----------+
+|     Sport|TotalMedals|
++----------+-----------+
+|  Sport 1 |        700|
+|  Sport 2 |        653|
+|    .     |        .  |
+|    .     |        .  |
+| Sport 10 |        511|
++----------+-----------+
+
+Question 3:
+
+What are the top 10 countries to have bagged most number of medals? Order the results in the order of TotalMedals descending. Save results to csv named 'top_10_countries.csv' along with the header information.
+
+Sample submission format:
++-------------+-----------+
+|      Country|TotalMedals|
++-------------+-----------+
+|   Country 1 |       1333|
+|   Country 2 |        744|
+|      .      |          .|
+|      .      |          .|
+|   Country 10|        455|
++-------------+-----------+
+
+Question 4:
+
+Who are the top 10 athletes to bag the most number of medals? Order the results in the order of TotalMedals descending. Save the results to csv named 'top_10_athlete.csv' along with the header information.
+
+Sample submission format:
++----------------+-----------+
+|         Athlete|TotalMedals|
++----------------+-----------+
+|      Athlete 1 |         20|
+|      Athlete 2 |         14|
+|         .      |          .|
+|         .      |          .|
+|      Athlete 10|         11|
++----------------+-----------+
+
+Question 5:
+
+Which country has bagged the most number of Gold medals in 2012 olympics? Save the results to csv named 'top_2012_gold.csv' along with the header information.
+
+Sample submission format:
++-------------+----------+
+|      Country|GoldMedals|
++-------------+----------+
+|     Country |       111|
++-------------+----------+
+
+Question 6:
+
+What is the name of the athelete who was oldest to bag a gold medal in Sport type 'Gymnastics'. Save the results to csv named 'oldest_gold_ath.csv' along with the header information.
+
+Sample submission format:
++-------------+
+|      Athlete|
++-------------+
+| Athlete name|
++-------------+
+
+Question 7:
+
+There are few multi-talented athletes who have bagged medals in more than 1 sport. What are the athelete names and the corresponding sports in which they had won an award. Save the results (Athlete and Sport) to ath_mul_med.csv along with the headers.
+
+Sample submission format:
++----------------+--------------------+
+|         Athlete|               Sport|
++----------------+--------------------+
+|      Athlete 1 |            Sport 1 |
+|      Athlete 1 |            Sport 2 |
+|      Athlete 2 |            Sport 1 |
+|      Athlete 2 |            Sport 2 |
+|          .     |              .     |
+|          .     |              .     |
+|      Athlete N |            Sport 1 |
+|      Athlete N |            Sport 2 |
++----------------+--------------------+
+
+
+Question 8:
+
+What is the distinct number(count) of teenagers who have won a medal in olympic i.e between age >= 13 to <= 19. Save the results to teen_med_count.csv along with header information.
+
+Sample submission format:
++-----+
+|count|
++-----+
+|  600|
++-----+
+
+Question 9:
+
+What is the correlation between age and medal won. Save the results to corr.csv along with header information.
+
+Sample submission format:
++--------------------+
+|         correlation|
++--------------------+
+|-0.08676785456456455|
++--------------------+
+
+Question 10:
+
+Classify the GoldMedals won by Athlete as given below. Add the classification to a new column "title".
+   GoldMedals won      >= 4  - "Legend"
+   GoldMedals won      >= 1  - "Pro"
+   GoldMedals won      <  1  - "Aspirant"
+
+Group the total number gold medals based on new column 'title' and order them by count ascending. Save the file as csv to 'ath_gold_class.csv' along with column headers.
+
+Sample submission format:
++--------+-----+
+|   title|count|
++--------+-----+
+|  Legend|   99|
+|     Pro|  999|
+|Aspirant| 9999|
++--------+-----+
+
+Question 11:
+
+What are the names of the athletes who have 'Lewis' as part of thier name. Save the results to 'lewis.csv' along with header information.
+
+Sample submission format:
++-------------------+
+|            Athlete|
++-------------------+
+|          ABC Lewis|
+|              .    |
+|              .    |
+|          EFG Lewis|
++-------------------+
+
+Question 12:
+What is the average(mean), minimum and maximum age of Athletes who have won atleast one medal. Write the information to a CSV file 'stat.csv' along with the header information.
+
+Sample submission format:
++------+------+------+
+|avgAge|minAge|maxAge|
++------+------+------+
+|    20|     7|    89|
++------+------+------+
+
+Question 13:
+For 'united states', how many Gold, Silver, Bronze and total medals were won for each of the years 2000, 2002, 2004, 2006, 2008, 2010, 2012. Save the result to a csv file named 'us_yearwise.csv' along with the header information.
+
+Sample submission format:
++-------------+----+----------+------------+------------+-----------+
+|      Country|Year|GoldMedals|SilverMedals|BronzeMedals|TotalMedals|
++-------------+----+----------+------------+------------+-----------+
+|United States|2000|       100|         100|          20|        220|
+|United States|2002|        10|          50|          20|         80|
+|United States|2004|       100|         100|         100|        300|
+|United States|2006|        10|          50|          20|         80|
+|United States|2008|       100|         100|         100|        300|
+|United States|2010|        10|          50|          20|         80|
+|United States|2012|       100|         100|         100|        300|
++-------------+----+----------+------------+------------+-----------+
+
+Question 14:
+
+As a continuation of previous question, for 'united states' find the percentage of Gold, silver and bronze medals(compare to total medals for respective year) for each year and save them to columns 'PercentGold','PercentSilver' and 'PercentBronze' respectively. In the final results drop the columns 'GoldMedals', 'SilverMedals' and 'BronzeMedals' and save the data to csv file 'us_yearwise_percent.csv' along with header information. Round the percentage to 2 decimal points.
+
+Sample submission format:
++-------------+----+-----------+-------------+-------------+
+|      Country|Year|PercentGold|PercentSilver|PercentBronze|
++-------------+----+-----------+-------------+-------------+
+|United States|2000|       54.5|         24.1|         21.4|
+|United States|2002|       10.1|        70.05|        19.85|
+|United States|2004|       54.5|         24.1|         21.5|
+|United States|2006|       10.1|        70.05|        19.85|
+|United States|2008|       54.5|         24.1|         21.5|
+|United States|2010|       10.1|        70.05|        19.85|
+|United States|2012|       54.5|         24.1|         21.5|
++-------------+----+-----------+-------------+-------------+
+
+Question 15:
+
+Based on 'Age' create a new column 'ageCat' as per below rules.
+a) Age Between 13 - 19 = teens
+b) Age Between 20 - 29 = twenties
+c) Age Between 30 - 39 = thirties
+d) Age Between 40 - 49 = fourties
+e) Age Between 50 - 59 = fifties
+f) Age Between 60 - 69 = sixties
+
+Based on the new column ageCat, what is the total number of medals won in each of the age categories, order by Total Medals in ascending order. Save the results to csv named 'med_by_age.csv' along with header information.
+
+Sample submission format:
++--------+-----------+
+|  ageCat|TotalMedals|
++--------+-----------+
+| sixties|          4|
+| fifties|         15|
+| forties|        166|
+|   teens|        433|
+|thirties|       2899|
+|twenties|       7800|
++--------+-----------+
+
+Question 16:
+
+Use the same base data a above. What is the average age for each sport and store it as a new INT column 'avgAge'. Order the results based on avgAge ascending and by Sport ascending. Save the results to age_cat.csv along with the header information.
+
+Sample submission format:
++--------------------+------+
+|               Sport|avgAge|
++--------------------+------+
+|  Sport 1           |    17|
+|  Sport 2           |    18|
+|     .              |     .|
+|     .              |     .|
+|  Sport N           |    24|
++--------------------+------+
+
+Question 17:
+
+Find the average age for swimming for each country and store it as a new column 'avgAge', of data type integer. Order the results by avgAge ascending followed by Country ascending. Save the results to swim_avg_age.csv along with the header information.
+
+Sample submission format:
++--------+-------------------+------+
+|   Sport|            Country|avgAge|
++--------+-------------------+------+
+|Swimming|          Country 1|    33|
+|Swimming|          Country 2|    15|
+|   .    |            .      |     .|
+|   .    |            .      |     .|
+|Swimming|          Country N|    20|
++--------+-------------------+------+
+
+Question 18:
+
+Use the data built for question 15 (age category). What is the total number of gold medals awarded to each country for each age category? Order the data by 'Total' column in decending order and take the top 10 results and write it to a csv named 'top10_gold_byage.csv along with the header information.
+
+Sample submission format:
++-------------+-----+--------+--------+-------+-------+-------+-----+
+|      Country|teens|twenties|thirties|forties|fifties|sixties|Total|
++-------------+-----+--------+--------+-------+-------+-------+-----+
+|    Country 1|   10|     300|     200|     10|      0|      0|  520|
+|    Country 2|   10|     200|      50|     10|      0|      0|  270|
+|      .      |   . |     .  |      . |     . |     . |    .  |  .  |
+|      .      |   . |     .  |      . |     . |     . |    .  |  .  |
+|   Country 10|    5|      50|      20|      5|      0|      0|   80|
++-------------+-----+--------+--------+-------+-------+-------+-----+
+
+Question 19:
+
+For top 10 sports in terms for TotalMedals won, what is the maximum age of atheletes who had won a medal by age category. Order the data by 'Sport' column in ascending order. Save the results in top_10_maxage.csv along with header information. The results from Question 2 can be used for top 10 popular sports.
+
+Sample submission format:
++----------+-----+--------+--------+-------+-------+
+|     Sport|teens|twenties|thirties|forties|fifties|
++----------+-----+--------+--------+-------+-------+
+|   Sport 1|   17|      29|      38|     40|     55|
+|   Sport 2|   19|      28|      39|     44|      0|
+|   .      |   . |      . |      . |     . |     . |
+|   .      |   . |      . |      . |     . |     . |
+|   Sport 3|   19|      29|      39|     49|     56|
++----------+-----+--------+--------+-------+-------+
+
+Question 20:
+
+For 'United states' in the year 2012 and specifically for 'Swimming', what is the difference in TotalMedals won between the top athlete and rest of them. The TotalMedals should be in decending order i.e. the athlete to have awareded highest number of medals should be displayed first as shown below. Save this difference to a new column named 'Medal_diff'. Save the results in usa_2012_swim_diff.csv along with header information.
+
+Sample submission format:
++----------------+-----------+----------+
+|         Athlete|TotalMedals|Medal_diff|
++----------------+-----------+----------+ (Medal_diff HINT)
+|       Athlete 1|          8|         0|  (e.g 8 - 8 = 0)
+|       Athlete 2|          7|         1|  (e.g 8 - 7 = 1)
+|       Athlete 3|          7|         1|  (e.g 8 - 7 = 1)
+|       Athlete 4|          5|         3|  (e.g 8 - 5 = 3)
+|       .        |          .|         .|
+|       .        |          .|         .|
+|       Athlete N|          1|         7|  (e.g 8 - 1 = 7)
++----------------+-----------+----------+
+
+Question 21:
+
+For 'United states' and in the year 2012, for each sport type who are the top 2 youngest(Age) athletes to have won a medal. Display the Sport name, Athlete name, Age and Total medals as shown below. Save the results in usa_2012_top_2.csv along with header information.
+
+Sample submission format:
++----------------+------------------+---+-----------+
+|           Sport|           Athlete|Age|TotalMedals|
++----------------+------------------+---+-----------+
+|         Sport 1|         Athlete 1| 15|          1|
+|         Sport 1|         Athlete 2| 16|          2|
+|         Sport 1|         Athlete 3| 16|          2|
+|         Sport 2|         Athlete 4| 30|          1|
+|         Sport 2|         Athlete 5| 31|          1|
+|         .      |         .        | . |          .|
+|         .      |         .        | . |          .|
+|         .      |         .        | . |          .|
+|         .      |         .        | . |          .|
+|         Sport N|         Athlete N| 20|          1|
+|         Sport N|         Athlete N| 21|          1|
++----------------+------------------+---+-----------+
